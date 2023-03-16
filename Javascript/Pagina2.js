@@ -95,18 +95,13 @@ window.addEventListener("load", () => {
   });
 
   const usuarios = query(ref(database, "/Usuarios"));
-
   onValue(usuarios, (snapshot) => {
     const users = snapshot.val();
     $("#app-users-list").empty();
     for (const key of Object.keys(users)) {
       $("#app-users-list").append(`
-        <div class="container-user">
-        <div class="container-user-info">
-        <img width='100px'  class="usuarios" src="${users[key].foto}"/>
-        <p clas="texto">${users[key].nombre}</p>
-        </div>
-        </div>
+        <img width='100px' src="${users[key].foto}"/>
+
       `);
     }
   });
@@ -125,9 +120,7 @@ window.addEventListener("load", () => {
 
     const data = google.visualization.arrayToDataTable([
       ["Label", "Value"],
-      ["Temperatura 1", 0],
-      ["Temperatura 2", 0],
-      ["Temperatura 3", 0],
+      ["", 0],
     ]);
 
     //Parámetros que debe tener los termostatos
@@ -147,32 +140,13 @@ window.addEventListener("load", () => {
     chart.draw(data, options);
 
     const temperaturas1 = query(
-      ref(database, "/Refrigerador/TThe1"),
-      limitToLast(100)
-    );
-    onValue(temperaturas1, (snapshot) => {
-      const lastTemp = lastElementOfObject(snapshot.val());
-      data.setValue(0, 1, lastTemp);
-      chart.draw(data, options);
-    });
-
-    const temperaturas2 = query(
       ref(database, "/Refrigerador/TThe2"),
       limitToLast(100)
     );
-    onValue(temperaturas2, (snapshot) => {
+    
+    onValue(temperaturas1, (snapshot) => {
       const lastTemp = lastElementOfObject(snapshot.val());
-      data.setValue(1, 1, lastTemp);
-      chart.draw(data, options);
-    });
-
-    const temperaturas3 = query(
-      ref(database, "/Refrigerador/TThe3"),
-      limitToLast(100)
-    );
-    onValue(temperaturas3, (snapshot) => {
-      const lastTemp = lastElementOfObject(snapshot.val());
-      data.setValue(2, 1, lastTemp);
+      data.setValue(0, 1, lastTemp);
       chart.draw(data, options);
     });
   }
@@ -216,7 +190,7 @@ window.addEventListener("load", () => {
         titleTextStyle: { color: "orangered", fontSize: 22, bold: true },
         viewWindowMode: "explicit",
       },
-      width: 680,
+      width: 600,
       height: 400,
       legend: { position: "none" },
       titleTextStyle: { fontSize: 24 },
@@ -256,7 +230,7 @@ window.addEventListener("load", () => {
     }
 
     const temperaturas1 = query(
-      ref(database, "/Refrigerador/TThe1"),
+      ref(database, "/Refrigerador/TThe2"),
       limitToLast(6)
     );
     onValue(temperaturas1, (snapshot) => {
@@ -264,23 +238,6 @@ window.addEventListener("load", () => {
       updateValuesGraph();
     });
 
-    const temperaturas2 = query(
-      ref(database, "/Refrigerador/TThe2"),
-      limitToLast(6)
-    );
-    onValue(temperaturas2, (snapshot) => {
-      temps2 = snapshot.val();
-      updateValuesGraph();
-    });
-
-    const temperaturas3 = query(
-      ref(database, "/Refrigerador/TThe3"),
-      limitToLast(6)
-    );
-    onValue(temperaturas3, (snapshot) => {
-      temps3 = snapshot.val();
-      updateValuesGraph();
-    });
 
     const minRef = query(
       ref(database, "/Refrigerador/Minutos"),

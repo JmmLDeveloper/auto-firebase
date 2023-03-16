@@ -95,18 +95,13 @@ window.addEventListener("load", () => {
   });
 
   const usuarios = query(ref(database, "/Usuarios"));
-
   onValue(usuarios, (snapshot) => {
     const users = snapshot.val();
     $("#app-users-list").empty();
     for (const key of Object.keys(users)) {
       $("#app-users-list").append(`
-        <div class="container-user">
-        <div class="container-user-info">
-        <img width='100px'  class="usuarios" src="${users[key].foto}"/>
-        <p clas="texto">${users[key].nombre}</p>
-        </div>
-        </div>
+        <img width='100px' src="${users[key].foto}"/>
+
       `);
     }
   });
@@ -125,9 +120,7 @@ window.addEventListener("load", () => {
 
     const data = google.visualization.arrayToDataTable([
       ["Label", "Value"],
-      ["Temperatura 1", 0],
-      ["Temperatura 2", 0],
-      ["Temperatura 3", 0],
+      ["", 0],
     ]);
 
     //Parámetros que debe tener los termostatos
@@ -150,6 +143,7 @@ window.addEventListener("load", () => {
       ref(database, "/Refrigerador/TThe1"),
       limitToLast(100)
     );
+    
     onValue(temperaturas1, (snapshot) => {
       const lastTemp = lastElementOfObject(snapshot.val());
       data.setValue(0, 1, lastTemp);
@@ -216,7 +210,7 @@ window.addEventListener("load", () => {
         titleTextStyle: { color: "orangered", fontSize: 22, bold: true },
         viewWindowMode: "explicit",
       },
-      width: 680,
+      width: 600,
       height: 400,
       legend: { position: "none" },
       titleTextStyle: { fontSize: 24 },
