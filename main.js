@@ -55,14 +55,18 @@ const provider = new GoogleAuthProvider();
 
 window.addEventListener("load", () => {
 
+  
   $("#google-login-btn").on("click", () => {
 
-    const auth = getAuth();
+   const auth=getAuth(appPropia);
 
+console.log(auth);
     signInWithPopup(auth, provider)
       .then((result) => {
+      
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
+        console.log(token);
         const user = result.user;
 
         const usuario = {
@@ -73,7 +77,7 @@ window.addEventListener("load", () => {
           dia: user.metadata.lastSignInTime,
         };
 
-        set(ref(database, "Usuarios/" + user.uid), usuario);
+        set(ref(databasePropia, "Usuarios/" + user.uid), usuario);
       })
       .catch((error) => {
         // Handle Errors here.

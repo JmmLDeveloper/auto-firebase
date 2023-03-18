@@ -10,7 +10,8 @@ import {
   limitToLast,
   set,
 } from "firebase/database";
-import { getImage } from "../Paginas/Imagen";
+import { getImage,setImage } from "./Imagen";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -36,9 +37,7 @@ const firebaseConfigPropia = {
   appId: "1:462835997338:web:41349d705b08cec250dd23"
 };
 
-$("#img1").attr("src",localStorage.getItem("image"));
 // Initialize Firebase
-
 const appPropia = initializeApp(firebaseConfigPropia,'secondary');
 
 const databasePropia = getDatabase(appPropia);
@@ -58,14 +57,17 @@ const provider = new GoogleAuthProvider();
 
 window.addEventListener("load", () => {
 
+  
   $("#google-login-btn").on("click", () => {
 
-    const auth = getAuth();
+   const auth=getAuth(appPropia);
 
     signInWithPopup(auth, provider)
       .then((result) => {
+      
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
+        console.log(token);
         const user = result.user;
 
         const usuario = {
@@ -76,7 +78,11 @@ window.addEventListener("load", () => {
           dia: user.metadata.lastSignInTime,
         };
 
-        set(ref(database, "Usuarios/" + user.uid), usuario);
+        localStorage.setItem("image",user.photoURL);
+        set(ref(databasePropia, "Usuarios/" + user.uid), usuario);
+        
+        window.location.href ="./Termostato1.html";
+     
       })
       .catch((error) => {
         // Handle Errors here.
@@ -98,13 +104,18 @@ window.addEventListener("load", () => {
   });
 
   const usuarios = query(ref(database, "/Usuarios"));
+
   onValue(usuarios, (snapshot) => {
     const users = snapshot.val();
     $("#app-users-list").empty();
     for (const key of Object.keys(users)) {
       $("#app-users-list").append(`
-        <img width='100px' src="${users[key].foto}"/>
-
+        <div class="container-user">
+        <div class="container-user-info">
+        <img width='100px'  class="usuarios" src="${users[key].foto}"/>
+        <p clas="texto">${users[key].nombre}</p>
+        </div>
+        </div>
       `);
     }
   });
@@ -123,7 +134,9 @@ window.addEventListener("load", () => {
 
     const data = google.visualization.arrayToDataTable([
       ["Label", "Value"],
-      ["", 0],
+      ["Temperatura 1", 0],
+      ["Temperatura 2", 0],
+      ["Temperatura 3", 0],
     ]);
 
     //Parámetros que debe tener los termostatos
@@ -146,7 +159,6 @@ window.addEventListener("load", () => {
       ref(database, "/Refrigerador/TThe1"),
       limitToLast(100)
     );
-    
     onValue(temperaturas1, (snapshot) => {
       const lastTemp = lastElementOfObject(snapshot.val());
       data.setValue(0, 1, lastTemp);
@@ -175,7 +187,6 @@ window.addEventListener("load", () => {
   }
 
 
-  
   function drawLineChart() {
     let temps1 = {};
     let temps2 = {};
@@ -214,7 +225,7 @@ window.addEventListener("load", () => {
         titleTextStyle: { color: "orangered", fontSize: 22, bold: true },
         viewWindowMode: "explicit",
       },
-      width: 600,
+      width: 680,
       height: 400,
       legend: { position: "none" },
       titleTextStyle: { fontSize: 24 },
@@ -297,141 +308,8 @@ window.addEventListener("load", () => {
     });
   }
 
-
-
-
-  function DrawLines(){
-
-    let temps1 = {};
-    let temps2 = {};
-    let temps3 = {};
-    let hours = {};
-    let minutes = {};
-
-    let graphNum = 1;
-
-     const data = google.visualization.arrayToDataTable([
-      ["Tiempo", "Temperatura1","Temperatura2","Temperatura3"],
-      ["0:00", 0, 0,0],
-      ["1:00", 0, 0,0],
-      ["2:00", 0, 0,0],
-      ["3:00", 0, 0,0],
-      ["4:00", 0, 0,0],
-      ["5:00", 0, 0,0],
-    ]);
-
-    var options = {
-      hAxis: {
-        title: 'Time'
-      },
-      vAxis: {
-        title: 'Temperatura'
-      },
-      series: {
-        1: {curveType: 'function'},
-        2: {curveType: 'function'},
-      }
-    };
-
-    var chart = new google.visualization.LineChart(
-      document.getElementById("chart_div")
-    );
-
-    function updateTimesGraph() {
-      let HoursKeys = Object.keys(hours);
-      let minutesKeys = Object.keys(minutes);
-
-      if (minutesKeys.length == HoursKeys.length) {
-        for (let i = 0; i < HoursKeys.length; i++) {
-          data.setValue(
-            i,
-            0,
-            `${hours[HoursKeys[i]]}:${minutes[minutesKeys[i]]}`
-          );
-        }
-      }
-      chart.draw(data, options);
-    }
-
-    function updateValuesGraph() {
-      let source = [temps1, temps2, temps3][0];
-      let keys = Object.keys(source);
-      
-      for (let i = 0; i < keys.length; i++) {
-        data.setValue(i, 1, source[keys[i]]);
-      }
-
-      source = [temps1,temps2,temps3][1];
-      keys = Object.keys(source);
-
-      for (let i = 0; i < keys.length; i++) {
-        data.setValue(i, 2, source[keys[i]]);
-      }
-
-      source = [temps1,temps2,temps3][2];
-      keys = Object.keys(source);
-
-      for (let i = 0; i < keys.length; i++) {
-        data.setValue(i, 3, source[keys[i]]);
-      }
-
-
-      console.log(data);
-
-      chart.draw(data, options);
-
-      
-
-    }
-
-      
-  
-  const temperaturas1 = query(
-      ref(database, "/Refrigerador/TThe1"),
-      limitToLast(6)
-    );
-    onValue(temperaturas1, (snapshot) => {
-      temps1 = snapshot.val();
-      updateValuesGraph();
-    });
-
-    const temperaturas2 = query(
-      ref(database, "/Refrigerador/TThe2"),
-      limitToLast(6)
-    );
-    onValue(temperaturas2, (snapshot) => {
-      temps2 = snapshot.val();
-      updateValuesGraph();
-    });
-
-    const temperaturas3 = query(
-      ref(database, "/Refrigerador/TThe3"),
-      limitToLast(6)
-    );
-    onValue(temperaturas3, (snapshot) => {
-      temps3 = snapshot.val();
-      updateValuesGraph();
-    });
-
-    const minRef = query(
-      ref(database, "/Refrigerador/Minutos"),
-      limitToLast(6)
-    );
-    onValue(minRef, (snapshot) => {
-      minutes = snapshot.val();
-      updateTimesGraph();
-    });
-
-    const HourRef = query(ref(database, "/Refrigerador/Hora"), limitToLast(6));
-
-  }
-  
-
   function drawCharts() {
-    DrawLines();
     drawGauges();
     drawLineChart();
-   
-    
   }
 });

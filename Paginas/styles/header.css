@@ -27,12 +27,13 @@ header{
 	align-content: stretch;
 }
 
-#circulo {
+#circulo, #img1 {
     background: lightblue;
     border-radius: 50%;
     width: 50px;
     height: 50px;
 }
+
 
 .Participantes{
     background-color: #0aaf96;
@@ -206,4 +207,84 @@ a{
 
 .texto{
     align-self: center;
+}
+
+
+
+
+
+
+.container-login{
+    width: 100vw;
+    height: 100vh;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.container-login-principal{
+    width: 25%;
+    height: 75%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 2.5px 2.5px 2.5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.container-login-1{
+    height: 60%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.container-login-principal-google{
+    background-color: #e0e0e0;
+    padding: 0px 15px 0px 15px;
+    border-radius: 15px;
+    width: 85%;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    border: solid transparent;
+}
+
+.container-login-titulo{
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-login-titulo p{
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size:1em;
+}
+
+.container-login-principal-google p{
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size:0.8em;
+}
+
+.container-login-principal-google img{
+    height: 25px;
+    width: 25px;
+    border: solid transparent;
+}
+
+.container-login-logo{
+    width: 50%;
+    display:flex;
+}
+
+.container-login-logo img{
+    align-self: center;
+    width:60%;
+    height: 100%;
 }
