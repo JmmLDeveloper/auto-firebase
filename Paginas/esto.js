@@ -37,6 +37,10 @@ const firebaseConfigPropia = {
   appId: "1:462835997338:web:41349d705b08cec250dd23"
 };
 
+$("#img1").attr("src",localStorage.getItem("image"));
+
+console.log(localStorage.getItem("image"));
+
 // Initialize Firebase
 const appPropia = initializeApp(firebaseConfigPropia,'secondary');
 
@@ -112,8 +116,9 @@ window.addEventListener("load", () => {
       $("#app-users-list").append(`
         <div class="container-user">
         <div class="container-user-info">
-        <img width='100px'  class="usuarios" src="${users[key].foto}"/>
-        <p clas="texto">${users[key].nombre}</p>
+          <div><img width='100px'  class="usuarios" src="${users[key].foto}"/>
+          </div>
+          <p class="texto">${users[key].nombre}</p>
         </div>
         </div>
       `);

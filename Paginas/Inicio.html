@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./styles/header.css" media="screen">
+ 
     <title>Document</title>
+
 </head>
 <body>
     <header>
@@ -16,31 +18,24 @@
         <div class="container-header-2">
             <button class="Participantes">
                 <a href="./Usuarios.html">Participantes</a></button>
-            </button>
-            <div class="dropdown">
-                <div id="circulo"><img alt="ok" id="img1" src=""></div> 
-                <div class="dropdown-content">
-                <a href="./Principal.html">Cerrar sesión</a>
-                </div>
-              </div>
+            <div id="circulo"><img alt="ok" id="img1" src=""></div>
         </div>
-        
     </header>
 
     <div class="container-principal">
         <div class="container-principal-leyenda">
             
             <div class="container-leyenda">
-               
-                <button class="container-leyenda-item-0" >
-                    <a href="./Inicio.html">Información general</a>
+
+                <button class="container-leyenda-item-1" >
+                    Información general
                </button>
 
                <button class="container-leyenda-item-0" >
                     <a href="./Termostato1.html">Termostato N°1</a>
                </button>
             
-               <button class="container-leyenda-item-1">
+               <button class="container-leyenda-item-0">
                 <a href="./Termostato2.html">Termostato N°2</a>
                    
                </button>
@@ -52,20 +47,16 @@
             </div> 
            
         </div>
-    <div class="container-principal-grafica">
-            <div class="container-grafica">
-                <div class="grafica" id="temp-line-charts"></div>
-            </div>
-        </div>
-        <div class="container-principal-termostato">
-            <div class="container-termostato">
+    <div class="container-principal-grafica-termostato">
+            <div class="container-termostato-principal">
                 <div id="temp-gauges"></div>
             </div>
         </div>
+       
 
     </div>
-
+    
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="module" src="../Javascript/Pagina2.js"></script>
+    <script type="module" src="../Javascript/PaginaInicial.js"></script>
 </body>
 </html>

@@ -35,6 +35,8 @@ const firebaseConfigPropia = {
   appId: "1:462835997338:web:41349d705b08cec250dd23"
 };
 
+$("#img1").attr("src",localStorage.getItem("image"));
+
 // Initialize Firebase
 const appPropia = initializeApp(firebaseConfigPropia,'secondary');
 

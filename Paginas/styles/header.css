@@ -7,6 +7,10 @@ header{
 	align-content: stretch;
 }
 
+
+.Participantes a{
+    color:white;
+}
 .container-header-1{
     width: 25%;
     display: flex;
@@ -91,7 +95,7 @@ img{
     background-color: white;
     border-radius:2.5px;
     width: 90%;
-    height: 25%;
+    height: 20%;
     box-shadow: 0px 2.5px 2.5px rgba(0, 0, 0, 0.2);
     border: solid transparent;
 }
@@ -101,7 +105,7 @@ img{
 
     border-radius:2.5px;
     width: 90%;
-    height: 25%;
+    height: 20%;
     border: solid transparent;
 }
 .container-principal-grafica{
@@ -168,7 +172,8 @@ a{
     height: 90%;
     border-radius:5px;
     background-color: transparent;
-    padding: 15px;
+    padding: 10px;
+   
 }
 
 
@@ -182,8 +187,18 @@ a{
 	align-content: stretch;
 }
 .container-user{
+    margin-top: 10px;
     width:20%;
     height:40%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-principal-usuarios h2{
+    margin-top:0;
+    font-family: sans-serif;
+    color:#616161;
 }
 
 .container-user-info{
@@ -197,16 +212,36 @@ a{
    align-items: center;
    justify-content: center;
 }
+.container-user-info div{
+    width: 100%;
+    height:70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container-user-info img{
+    align-items:  center;
+}
 
 .usuarios{
     border-radius: 50%;
-    width: 75px;
-    height: 75px;
+    width: 60px;
+    height: 60px;
     align-self: center;
+    margin:0;
 }
 
 .texto{
-    align-self: center;
+    text-align: center;
+}
+
+.container-volver{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    width: 15%;
+    height: 10%;
+    margin-top:10px;
 }
 
 
@@ -287,4 +322,73 @@ a{
     align-self: center;
     width:60%;
     height: 100%;
+}
+
+
+
+
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+  }
+.dropdown button{
+    height: 20px;
+    width: 120px;
+    background-color: transparent;
+    border: solid transparent;
+    display: flex;
+    align-items: flex-start;
+    overflow-x: hidden
+}
+.dropdown button img{
+    height: 20px;
+    width: 120px;
+    overflow-x: hidden;
+}
+  .dropdown-content {
+    overflow-x: hidden;
+    display: none;
+    position: absolute;
+    width: 120px;
+    overflow: auto;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+    overflow-x: hidden;
+  }
+  .dropdown-content a {
+    display: block;
+    color: #000000;
+    padding: 5px;
+    height: 20px;
+    width: 120px;
+    text-decoration: none;
+    overflow-x: hidden;
+  }
+  .dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: #00A4BD;
+    overflow-x: hidden;
+  }
+
+
+  .container-termostato-principal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container-principal-grafica-termostato{
+   
+    width:70%;
+    height: 100%;
+    background-color: #dee4e9;
+    border-radius:10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
 }
