@@ -277,14 +277,29 @@ a{
 }
 
 .container-login-principal-google{
-    background-color: #e0e0e0;
+    background-color: white;
+    border: transparent solid;
+    box-shadow: 0px 2.5px 2.5px 2.5px rgba(0, 0, 0, 0.2);
     padding: 0px 15px 0px 15px;
     border-radius: 15px;
     width: 85%;
     display:flex;
     align-items: center;
     justify-content: space-between;
-    border: solid transparent;
+   
+}
+
+.container-login-principal-google:hover{
+    background-color: #2196f3;
+    border: transparent solid;
+    box-shadow: 0px 2.5px 2.5px 2.5px rgba(0, 0, 0, 0.2);
+    padding: 0px 15px 0px 15px;
+    border-radius: 15px;
+    width: 85%;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    color:white;
 }
 
 .container-login-titulo{
@@ -316,12 +331,15 @@ a{
 .container-login-logo{
     width: 50%;
     display:flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .container-login-logo img{
     align-self: center;
     width:60%;
     height: 100%;
+    margin:0
 }
 
 
@@ -387,8 +405,27 @@ a{
     background-color: #dee4e9;
     border-radius:10px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: #00a152;
 
+}
+
+.container-termostatos{
+    width: 100%;
+    height: 10%;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+}
+
+.container-termostatos div{
+    width: 25%;;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }

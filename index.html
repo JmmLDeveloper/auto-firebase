@@ -1,37 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <a href="./Paginas/Principal.html">Inicio</a>
-    <h1> Proyecto de Automatizacion </h1>
-
-
-    <h2> Usuarios de la app </h2>
-    <button id="google-login-btn" > Logearse con google </button>
-    <div id="app-users-list" >
-      
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./Paginas/styles/header.css" media="screen">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-login">
+            <div class="container-login-principal">
+                <div class="container-login-1">
+                   <div class="container-login-logo"> <img alt="titulo-unet" src="./Paginas/Logo-unet_sin_texto.png"></div>
+                   <div class="container-login-titulo">
+                    <p>Inicia sesión</p>
+                    
+                </div>
+                   <button class="container-login-principal-google" id="google-login-btn">
+                       <img alt="logo google" src="./Paginas/Logo_google.png">
+                       <p>Inicia sesión con google</p>
+                   </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <h2> Temperaturas </h2>
-
-    <div id="temp-gauges"></div>
-    <h2> Temperaturas atravez del tiempo </h2>
-    <div>
-      <button data-graph-btn="1"> Ver Grafico de temperatura 1 </button>
-      <button data-graph-btn="2"> Ver Grafico de temperatura 2 </button>
-      <button data-graph-btn="3"> Ver Grafico de temperatura 3 </button>
-
-    </div>
-    <div id="temp-line-charts"></div>
-
-
- 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="module" src="/main.js"></script>
-  </body>
+    <script type="module" src="./Javascript/Login.js"></script>
+</body>
 </html>

@@ -26,13 +26,13 @@ const firebaseConfig = {
 };
 
 const firebaseConfigPropia = {
-  apiKey: "AIzaSyC17i1ZK48MJC7ybMtiRJv9THvX-5qZUys",
-  authDomain: "automatizacion-e3143.firebaseapp.com",
-  databaseURL: "https://automatizacion-e3143-default-rtdb.firebaseio.com",
-  projectId: "automatizacion-e3143",
-  storageBucket: "automatizacion-e3143.appspot.com",
-  messagingSenderId: "462835997338",
-  appId: "1:462835997338:web:41349d705b08cec250dd23"
+  apiKey: "AIzaSyCTWXV0D8gevymvk5mOD4-Td_JJRdU-_S4",
+  authDomain: "automatizacion-e93d1.firebaseapp.com",
+  databaseURL:"https://automatizacion-e93d1-default-rtdb.firebaseio.com",
+  projectId: "automatizacion-e93d1",
+  storageBucket: "automatizacion-e93d1.appspot.com",
+  messagingSenderId: "996410078097",
+  appId: "1:996410078097:web:ecc12b5a29f57943f16030"
 };
 
 $("#img1").attr("src",localStorage.getItem("image"));
