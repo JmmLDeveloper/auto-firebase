@@ -1,3 +1,11 @@
+*{
+    box-sizing: border-box;
+}
+
+#temp-gauges-1,#temp-gauges-2,#temp-gauges-3,#temp-line-charts-p{
+    display:none;
+}
+
 header{
     display: flex;
 	flex-direction: row;
@@ -23,6 +31,7 @@ header{
 
 .container-header-2{
     width: 25%;
+    height:100%;
     display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -133,7 +142,7 @@ img{
     align-items: center;
 }
 
-.container-termostato{
+.container-termostato-1{
     width:80%;
     height: 70%;
     border-radius: 15px;
@@ -428,4 +437,117 @@ a{
     display:flex;
     align-items: center;
     justify-content: center;
+}
+
+
+@media only screen and (max-width: 500px) {
+
+   
+  .container-login-principal{
+    width: 75%;
+    height:75%;
+  }
+
+  .container-header-2{
+    width:50%;
+    height:100%;
+  }
+
+  header{
+    width:100vw;
+    height: 10vh;
+  }
+
+  .container-volver{
+    width:50%;
+    height: 5vh;
+    display:flex;
+    justify-content: flex-start;
+  }
+
+  .Participantes{
+    height: 65%;
+  }
+
+  .container-principal-usuarios{
+    height: 100%;
+  }
+  #app-users-list{
+    height: auto;
+    box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+  }
+
+  .container-user{
+    width: 75%;
+  }
+
+  .container-principal{
+    margin-top:5vh;
+    box-sizing: border-box;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: stretch;
+  }
+
+  .container-principal-leyenda{
+    
+    width: 100vw;
+    height: 50vh;
+  }
+  
+  .container-leyenda{
+    width:75vw;
+    height:30vh;
+  }
+  .container-leyenda-item-1{
+    background-color: #0aaf96;
+    margin-top: 2.5px;
+  }
+
+  .container-leyenda-item-1 a{
+    color:white;
+  }
+
+  .container-principal-grafica-termostato{
+    margin-top:5vh;
+    box-sizing: content-box;
+  }
+
+  .container-termostatos div{
+    visibility: hidden;
+  }
+
+  .container-termostato-principal{
+    width: 50vw;
+    height: 70vh;
+    box-sizing: border-box;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    
+  }
+
+  #temp-gauges-0,#temp-line-charts{
+    display:none;
+  }
+
+  .container-termostatos{
+    display:none;
+  }
+
+  #temp-gauges-1,#temp-gauges-2,#temp-gauges-3,#temp-line-charts-p
+  {
+    display: contents;
+}
+
 }

@@ -36,8 +36,8 @@ const firebaseConfigPropia = {
 };
 
 $("#img1").attr("src",localStorage.getItem("image"));
-// Initialize Firebase
 
+// Initialize Firebase
 const appPropia = initializeApp(firebaseConfigPropia,'secondary');
 
 const databasePropia = getDatabase(appPropia);
@@ -151,30 +151,9 @@ window.addEventListener("load", () => {
       data.setValue(0, 1, lastTemp);
       chart.draw(data, options);
     });
-
-    const temperaturas2 = query(
-      ref(database, "/Refrigerador/TThe2"),
-      limitToLast(100)
-    );
-    onValue(temperaturas2, (snapshot) => {
-      const lastTemp = lastElementOfObject(snapshot.val());
-      data.setValue(1, 1, lastTemp);
-      chart.draw(data, options);
-    });
-
-    const temperaturas3 = query(
-      ref(database, "/Refrigerador/TThe3"),
-      limitToLast(100)
-    );
-    onValue(temperaturas3, (snapshot) => {
-      const lastTemp = lastElementOfObject(snapshot.val());
-      data.setValue(2, 1, lastTemp);
-      chart.draw(data, options);
-    });
   }
 
 
-  
   function drawLineChart() {
     let temps1 = {};
     let temps2 = {};
@@ -261,23 +240,6 @@ window.addEventListener("load", () => {
       updateValuesGraph();
     });
 
-    const temperaturas2 = query(
-      ref(database, "/Refrigerador/TThe2"),
-      limitToLast(6)
-    );
-    onValue(temperaturas2, (snapshot) => {
-      temps2 = snapshot.val();
-      updateValuesGraph();
-    });
-
-    const temperaturas3 = query(
-      ref(database, "/Refrigerador/TThe3"),
-      limitToLast(6)
-    );
-    onValue(temperaturas3, (snapshot) => {
-      temps3 = snapshot.val();
-      updateValuesGraph();
-    });
 
     const minRef = query(
       ref(database, "/Refrigerador/Minutos"),
@@ -296,11 +258,9 @@ window.addEventListener("load", () => {
     });
   }
 
+//Pequeño
 
-
-
-  function DrawLines(){
-
+  function drawLineChartP() {
     let temps1 = {};
     let temps2 = {};
     let temps3 = {};
@@ -309,32 +269,47 @@ window.addEventListener("load", () => {
 
     let graphNum = 1;
 
-     const data = google.visualization.arrayToDataTable([
-      ["Tiempo", "Temperatura1","Temperatura2","Temperatura3"],
-      ["0:00", 0, 0,0],
-      ["1:00", 0, 0,0],
-      ["2:00", 0, 0,0],
-      ["3:00", 0, 0,0],
-      ["4:00", 0, 0,0],
-      ["5:00", 0, 0,0],
+    const data = google.visualization.arrayToDataTable([
+      ["Tiempo", "Temperatura"],
+      ["0:00", 0],
+      ["1:00", 0],
+      ["2:00", 0],
+      ["3:00", 0],
+      ["4:00", 0],
+      ["5:00", 0],
     ]);
 
-    var options = {
+    $("[data-graph-btn]").on("click", function () {
+      graphNum = $(this).data("graph-btn");
+      updateValuesGraph();
+    });
+
+    const options = {
+      min: -100,
+      max: 200,
+      title: "Temperatura a travez del tiempo",
       hAxis: {
-        title: 'Time'
+        title: "Tiempo",
+        format: "HH:mm",
+        titleTextStyle: { color: "orangered", fontSize: 12, bold: true },
       },
       vAxis: {
-        title: 'Temperatura'
+        title: "Tempertura(°C)",
+        titleTextStyle: { color: "orangered", fontSize: 12, bold: true },
+        viewWindowMode: "explicit",
       },
-      series: {
-        1: {curveType: 'function'},
-        2: {curveType: 'function'},
-      }
+      width: 300,
+      height: 300,
+      legend: { position: "none" },
+      titleTextStyle: { fontSize: 12 },
+      pointsVisible: true,
     };
 
     var chart = new google.visualization.LineChart(
-      document.getElementById("chart_div")
+      document.getElementById("temp-line-charts-p")
     );
+
+    chart.draw(data, options);
 
     function updateTimesGraph() {
       let HoursKeys = Object.keys(hours);
@@ -353,39 +328,16 @@ window.addEventListener("load", () => {
     }
 
     function updateValuesGraph() {
-      let source = [temps1, temps2, temps3][0];
+      let source = [temps1, temps2, temps3][graphNum - 1];
       let keys = Object.keys(source);
-      
       for (let i = 0; i < keys.length; i++) {
         data.setValue(i, 1, source[keys[i]]);
       }
 
-      source = [temps1,temps2,temps3][1];
-      keys = Object.keys(source);
-
-      for (let i = 0; i < keys.length; i++) {
-        data.setValue(i, 2, source[keys[i]]);
-      }
-
-      source = [temps1,temps2,temps3][2];
-      keys = Object.keys(source);
-
-      for (let i = 0; i < keys.length; i++) {
-        data.setValue(i, 3, source[keys[i]]);
-      }
-
-
-      console.log(data);
-
       chart.draw(data, options);
-
-      
-
     }
 
-      
-  
-  const temperaturas1 = query(
+    const temperaturas1 = query(
       ref(database, "/Refrigerador/TThe1"),
       limitToLast(6)
     );
@@ -394,23 +346,6 @@ window.addEventListener("load", () => {
       updateValuesGraph();
     });
 
-    const temperaturas2 = query(
-      ref(database, "/Refrigerador/TThe2"),
-      limitToLast(6)
-    );
-    onValue(temperaturas2, (snapshot) => {
-      temps2 = snapshot.val();
-      updateValuesGraph();
-    });
-
-    const temperaturas3 = query(
-      ref(database, "/Refrigerador/TThe3"),
-      limitToLast(6)
-    );
-    onValue(temperaturas3, (snapshot) => {
-      temps3 = snapshot.val();
-      updateValuesGraph();
-    });
 
     const minRef = query(
       ref(database, "/Refrigerador/Minutos"),
@@ -423,14 +358,15 @@ window.addEventListener("load", () => {
 
     const HourRef = query(ref(database, "/Refrigerador/Hora"), limitToLast(6));
 
+    onValue(HourRef, (snapshot) => {
+      hours = snapshot.val();
+      updateTimesGraph();
+    });
   }
-  
 
   function drawCharts() {
-    DrawLines();
     drawGauges();
     drawLineChart();
-   
-    
+    drawLineChartP();
   }
 });

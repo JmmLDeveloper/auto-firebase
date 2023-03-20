@@ -147,10 +147,42 @@ console.log(auth);
     };
 
     const chart = new google.visualization.Gauge(
-      document.getElementById("temp-gauges")
+      document.getElementById("temp-gauges-0")
     );
 
+    
     chart.draw(data, options);
+
+    const data1= google.visualization.arrayToDataTable([
+      ["Label", "Value"],
+      ["Temperatura 1", 0],
+    ])
+
+    const data2= google.visualization.arrayToDataTable([
+      ["Label", "Value"],
+      ["Temperatura 2", 0],
+    ])
+
+    const data3= google.visualization.arrayToDataTable([
+      ["Label", "Value"],
+      ["Temperatura 3", 0],
+    ])
+
+   const chart1= new google.visualization.Gauge(
+    document.getElementById("temp-gauges-1")
+  );
+
+  const chart2= new google.visualization.Gauge(
+    document.getElementById("temp-gauges-2")
+  );
+
+  const chart3= new google.visualization.Gauge(
+    document.getElementById("temp-gauges-3")
+  );
+
+    chart1.draw(data1,options);
+    chart2.draw(data2,options);
+    chart3.draw(data3,options);
 
     const temperaturas1 = query(
       ref(database, "/Refrigerador/TThe1"),
@@ -159,7 +191,11 @@ console.log(auth);
     onValue(temperaturas1, (snapshot) => {
       const lastTemp = lastElementOfObject(snapshot.val());
       data.setValue(0, 1, lastTemp);
+      data1.setValue(0,1,lastTemp);
+
+      chart1.draw(data1,options);
       chart.draw(data, options);
+      
     });
 
     const temperaturas2 = query(
@@ -169,7 +205,10 @@ console.log(auth);
     onValue(temperaturas2, (snapshot) => {
       const lastTemp = lastElementOfObject(snapshot.val());
       data.setValue(1, 1, lastTemp);
+      data2.setValue(0,1,lastTemp);
+      chart2.draw(data2,options);
       chart.draw(data, options);
+
     });
 
     const temperaturas3 = query(
@@ -179,6 +218,8 @@ console.log(auth);
     onValue(temperaturas3, (snapshot) => {
       const lastTemp = lastElementOfObject(snapshot.val());
       data.setValue(2, 1, lastTemp);
+      data3.setValue(0,1,lastTemp);
+      chart3.draw(data3,options);
       chart.draw(data, options);
     });
   }

@@ -258,8 +258,113 @@ window.addEventListener("load", () => {
     });
   }
 
+  function drawLineChartP() {
+    let temps1 = {};
+    let temps2 = {};
+    let temps3 = {};
+    let hours = {};
+    let minutes = {};
+
+    let graphNum = 1;
+
+    const data = google.visualization.arrayToDataTable([
+      ["Tiempo", "Temperatura"],
+      ["0:00", 0],
+      ["1:00", 0],
+      ["2:00", 0],
+      ["3:00", 0],
+      ["4:00", 0],
+      ["5:00", 0],
+    ]);
+
+    $("[data-graph-btn]").on("click", function () {
+      graphNum = $(this).data("graph-btn");
+      updateValuesGraph();
+    });
+
+    const options = {
+      min: -100,
+      max: 200,
+      title: "Temperatura a travez del tiempo",
+      hAxis: {
+        title: "Tiempo",
+        format: "HH:mm",
+        titleTextStyle: { color: "orangered", fontSize: 12, bold: true },
+      },
+      vAxis: {
+        title: "Tempertura(°C)",
+        titleTextStyle: { color: "orangered", fontSize: 12, bold: true },
+        viewWindowMode: "explicit",
+      },
+      width: 300,
+      height: 300,
+      legend: { position: "none" },
+      titleTextStyle: { fontSize: 12 },
+      pointsVisible: true,
+    };
+
+    var chart = new google.visualization.LineChart(
+      document.getElementById("temp-line-charts-p")
+    );
+
+    chart.draw(data, options);
+
+    function updateTimesGraph() {
+      let HoursKeys = Object.keys(hours);
+      let minutesKeys = Object.keys(minutes);
+
+      if (minutesKeys.length == HoursKeys.length) {
+        for (let i = 0; i < HoursKeys.length; i++) {
+          data.setValue(
+            i,
+            0,
+            `${hours[HoursKeys[i]]}:${minutes[minutesKeys[i]]}`
+          );
+        }
+      }
+      chart.draw(data, options);
+    }
+
+    function updateValuesGraph() {
+      let source = [temps1, temps2, temps3][graphNum - 1];
+      let keys = Object.keys(source);
+      for (let i = 0; i < keys.length; i++) {
+        data.setValue(i, 1, source[keys[i]]);
+      }
+
+      chart.draw(data, options);
+    }
+
+    const temperaturas1 = query(
+      ref(database, "/Refrigerador/TThe3"),
+      limitToLast(6)
+    );
+    onValue(temperaturas1, (snapshot) => {
+      temps1 = snapshot.val();
+      updateValuesGraph();
+    });
+
+
+    const minRef = query(
+      ref(database, "/Refrigerador/Minutos"),
+      limitToLast(6)
+    );
+    onValue(minRef, (snapshot) => {
+      minutes = snapshot.val();
+      updateTimesGraph();
+    });
+
+    const HourRef = query(ref(database, "/Refrigerador/Hora"), limitToLast(6));
+
+    onValue(HourRef, (snapshot) => {
+      hours = snapshot.val();
+      updateTimesGraph();
+    });
+  }
+
   function drawCharts() {
     drawGauges();
     drawLineChart();
+    drawLineChartP();
   }
 });
