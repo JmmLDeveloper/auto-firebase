@@ -27,13 +27,13 @@ const firebaseConfig = {
 
 
 const firebaseConfigPropia = {
-  apiKey: "AIzaSyCTWXV0D8gevymvk5mOD4-Td_JJRdU-_S4",
-  authDomain: "automatizacion-e93d1.firebaseapp.com",
-  databaseURL:"https://automatizacion-e93d1-default-rtdb.firebaseio.com",
-  projectId: "automatizacion-e93d1",
-  storageBucket: "automatizacion-e93d1.appspot.com",
-  messagingSenderId: "996410078097",
-  appId: "1:996410078097:web:ecc12b5a29f57943f16030"
+  apiKey: "AIzaSyBG84BJ6g0G7vNtHG04ALMa50jg0-a5fpY",
+  authDomain: "automatizacion-57631.firebaseapp.com",
+  databaseURL: "https://automatizacion-57631-default-rtdb.firebaseio.com",
+  projectId: "automatizacion-57631",
+  storageBucket: "automatizacion-57631.appspot.com",
+  messagingSenderId: "317473957362",
+  appId: "1:317473957362:web:c2e693eeacda933bc4376b"
 };
 
 
@@ -57,7 +57,6 @@ function lastElementOfObject(obj) {
 const provider = new GoogleAuthProvider();
 
 window.addEventListener("load", () => {
-
   
   $("#google-login-btn").on("click", () => {
 
